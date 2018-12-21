@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', initPage())
 
 function initPage(){
   fetchImageObject()
+  likeHandler()
+  addFormHandler()
 }
 
 function fetchImageObject(){
@@ -30,4 +32,42 @@ function renderData(data){
   let contentHtml = `<li>${comment.content}</li>`
   commentContainer.innerHTML += contentHtml
   })
+}
+
+function likeHandler(){
+  var likeButton = document.querySelector('#like_button')
+  likeButton.addEventListener('click', incrementLikes)
+}
+
+function incrementLikes(event){
+  event.preventDefault()
+  let likeCount = parseInt(document.querySelector('#likes').innerText)
+  likeCount += 1
+  document.querySelector('#likes').innerText = likeCount
+
+
+  let request = new Request(likeURL)
+  let options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      image_id: imageId,
+      like_count: likeCount
+    })
+  }
+  fetch(request, options)
+}
+
+function addFormHandler(){
+  let form = document.querySelector('#comment_form')
+  form.addEventListener("submit", processComment)
+}
+
+function processComment(event){
+  event.preventDefault()
+  let commentValue = event.target.comment.value
+  let comments = document.querySelector('#comments')
+  comments.innerHTML += `<li>${commentValue}</li>`
 }
