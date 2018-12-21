@@ -67,9 +67,26 @@ function processComment(event){
   //what does this do?  explain it to me again please
 event.preventDefault
   //refactor search?
+  //this is hitting fetch twice.  WHY????
   let comment = event.target.querySelector("#comment_input").value
   let commentContainer = document.querySelector("#comments")
   commentContainer.innerHTML += `<li>${comment}</li>`
+
+  let request = new Request(commentsURL)
+  let options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      image_id: 1746,
+      content: comment
+    })
+  }
+  fetch(request, options)
+}
+
+function deleteComment(){
 
 }
 
