@@ -13,7 +13,7 @@ Today we're building RandoPic, an app for viewing a random picture. There is a b
 
 A RandoPic user will be able to do the following things:
 
-- As a user, when the page loads I will see an image, any comments that image has, and the number of likes that image has.
+<!-- - As a user, when the page loads I will see an image, any comments that image has, and the number of likes that image has. -->
 
 - As a user, I can click to like an image, which will increase the number of likes that image has by one.
 
