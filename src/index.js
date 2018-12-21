@@ -1,5 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('%c DOM Content Loaded and Parsed!', 'color: magenta')
+document.addEventListener('DOMContentLoaded', initPage())
 
   let imageId = 1747
 
@@ -9,21 +8,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const commentsURL = `https://randopic.herokuapp.com/comments/`
 
-})
+function initPage(){
+  fetchImageObject()
+}
 
-function getImage(){
-  return fetch('https://randopic.herokuapp.com/images/1747').then(function (res) {
-    return res.json()
-    .then(image => renderImage(image))}
+function fetchImageObject(){
+  return fetch(`https://randopic.herokuapp.com/images/1747`)
+  .then(function(resp)  {return resp.json()})
+  .then(function (data) {return renderData(data)})
+}
+
+function renderData(data){
+  document.querySelector('#image').src = data.url
+  document.querySelector('#name').innerText = data.name
+  document.querySelector('#likes').innerText = data.like_count
+  let commentContainer = document.querySelector('#comments')
+
+  let comments = data.comments
+
+  comments.forEach(function(comment){
+  let contentHtml = `<li>${comment.content}</li>`
+  commentContainer.innerHTML += contentHtml
   })
 }
-
-function renderImage(){
-  let html = imageCardHtml(image)
-  let container = document.querySelector('.container')
-  container.innerHTML += html
-  let title = document.querySelector('#name')
-  title.innerHTML += ${image.name}
-  debugger
-}
-//fuck. My brain isnt working.
