@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const commentsURL = `https://randopic.herokuapp.com/comments/`
 
   fetchImage(imageURL)
-  likeHandler(imageURL)
+  likeHandler()
 })
 
 function fetchImage(imageURL) {
@@ -37,13 +37,27 @@ function updateHTML(data) {
   })
 }
 
-function likeHandler(url) {
+function likeHandler() {
   let likeButton = document.querySelector('#like_button')
   likeButton.addEventListener('click', increaseLikes)
 }
 
 function increaseLikes(e) {
   let likes = document.querySelector('#likes')
-  likes.innerText = (parseInt(likes.innerText) + 1).toString() 
+  likes.innerText = (parseInt(likes.innerText) + 1).toString()
+  updateLikes(likes) 
 }
 
+function updateLikes(likes) {
+  let intLikes = parseInt(likes.innerText)
+  return fetch(`https://randopic.herokuapp.com/likes/`, {
+    method: "POST", 
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }, 
+    body: JSON.stringify({
+      image_id: 1748, 
+    })
+  })
+}
