@@ -28,6 +28,8 @@ function renderImage(json){
   document.querySelector("#comments").innerHTML = commentsHTML
   addLikesHandler()
   addCommentHandler()
+  addDeleteButtons()
+  addDeleteHandler()
 }
 
 function addLikesHandler(){
@@ -86,9 +88,25 @@ event.preventDefault
   fetch(request, options)
 }
 
-function deleteComment(){
+function addDeleteButtons(){
+  let comments = document.querySelector("#comments").querySelectorAll("li")
+  comments.forEach(function(comment){
+    comment.innerHTML += `<button class="delete">Delete<button>`
+  })
+}
+
+function addDeleteHandler(){
+  let buttons = document.querySelectorAll(".delete")
+  buttons.forEach(function(button){
+    button.addEventListener("click", deleteComment)
+  })
+}
+
+function deleteComment(event){
+  debugger
 
 }
+
 
 // 1746
 // https://randopic.herokuapp.com/images/1746
