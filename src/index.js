@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   fetchImage(imageURL)
   likeHandler()
+  formHandler()
 })
 
 function fetchImage(imageURL) {
@@ -61,3 +62,20 @@ function updateLikes(likes) {
     })
   })
 }
+
+function formHandler() {
+  let form = document.querySelector('#comment_form')
+  form.addEventListener('submit', formSubmission)
+}
+
+function formSubmission(e) {
+  e.preventDefault()
+  let commentSection = document.querySelector('#comments')
+  let comment = e.target.comment.value
+
+  commentSection.innerHTML += `
+    <li>${comment}</li>
+  `
+}
+
+
