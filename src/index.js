@@ -76,6 +76,21 @@ function formSubmission(e) {
   commentSection.innerHTML += `
     <li>${comment}</li>
   `
+  updateComments(comment)
 }
 
+function updateComments(comment) {
+  fetch(`https://randopic.herokuapp.com/comments`, {
+    method: "POST", 
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }, 
+    body: JSON.stringify({
+      image_id: 1748, 
+      content: comment
+    })
+  })
+  .then(console.log)
+}
 
